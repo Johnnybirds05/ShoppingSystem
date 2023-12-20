@@ -1,12 +1,13 @@
 <template>
-    <h1>{{welcome}}</h1>
+    <h1>{{welco}}</h1>
+    hahaha
 </template>
 <script>
 
     export default {
         data () {
            return{
-            welcome: 'Vue Sucessfully installed'
+            welco: 'Hello Kyle!'
            }
         }
     }

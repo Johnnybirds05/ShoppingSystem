@@ -1,25 +1,21 @@
-// app.js
+
 import './bootstrap';
 
-// import {createApp} from 'vue'
+// window.axios = require('axios');
+import axios from 'axios';
 
-// import App from './components/App.vue'
+import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
-// createApp(App).mount("#app")
-import { createApp } from 'vue';
+const componentContext = import.meta.globEager('./components/**/*.vue');
 
-// Automatically register all Vue components in the components directory
-const componentContext = require.context('./components', true, /\.vue$/);
 const app = createApp({});
 
-componentContext.keys().forEach((componentPath) => {
-  const componentName = componentPath
-    .split('/')
-    .pop()
-    .replace(/\.\w+$/, '');
-
-  const component = componentContext(componentPath).default;
-  app.component(componentName, component);
-});
-
-app.mount('#app');
+for (const path in componentContext) {
+    const componentModule = componentContext[path];
+    const fileName = path.split('/').pop().replace(/\.\w+$/, '');
+  
+    const component = componentModule.default;
+    app.component(fileName, component);
+  };
+  
+  app.mount('#app');
